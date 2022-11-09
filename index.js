@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 const run = async() => {
     try{
         const serviceCollection = client.db('snapWithAmit').collection('services');
+        const reviewCollection = client.db('snapWithAmit').collection('reviews');
 
         // get method 
 
@@ -52,6 +53,12 @@ const run = async() => {
         app.post('/service', async(req, res) => {
             const service = req.body;
             const result = await serviceCollection.insertOne(service);
+            res.send(result);
+        });
+
+        app.post('/review', async(req, res) => {
+            const review = req.body;
+            const result = await reviewCollection.insertOne(review);
             res.send(result);
         });
 
