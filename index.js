@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+require('dotenv').config();
+
 const port = process.env.PORT || 5000;
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
@@ -10,12 +12,10 @@ app.use(express.json());
 
 //  Mongodb and api
 
-const uri = "mongodb+srv://snap-with-amit-user:YUp1twTmMMps1o1U@cluster0.mqmhnff.mongodb.net/?retryWrites=true&w=majority";
+// const uri = "mongodb+srv://snap-with-amit-user:YUp1twTmMMps1o1U@cluster0.mqmhnff.mongodb.net/?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASS}@cluster0.mqmhnff.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-app.get('/', (req, res) => {
-    res.send('Welcome to Node mongo crud server.');
-});
 
 const run = async() => {
     try{
@@ -68,8 +68,6 @@ const run = async() => {
         });
 
 
-
-
         // post method 
 
         app.post('/service', async(req, res) => {
@@ -111,17 +109,6 @@ const run = async() => {
             const result = await reviewCollection.updateOne(filter, updatedUser, option);
             res.send(result);
         });
-
-
-
-
-
-
-
-
-
-
-
     }
     finally{
 
