@@ -24,6 +24,10 @@ const run = async() => {
 
         // get method 
 
+        app.get('/', async(req, res) => {
+            res.send('server running');
+        });
+
         app.get('/services', async(req, res) => {
             const query = {};
             const cursor = serviceCollection.find(query);
